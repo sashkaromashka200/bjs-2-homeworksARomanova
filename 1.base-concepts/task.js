@@ -20,20 +20,27 @@ function solveEquation(a, b, c) {
     return arr;
 }
 
-function calculateTotalMortgage(percent, contribution, amount, countMonths) {
-    if (typeof percent !== 'number' || typeof contribution !== 'number' 
-        || typeof amount !== 'number' || typeof countMonths !== 'number') {
+    function calculateTotalMortgage(percent, contribution, amount, countMonths) {
+        if (typeof percent !== 'number' || typeof contribution !== 'number' ||
+        typeof amount !== 'number' || typeof countMonths !== 'number') {
         throw new Error('Все параметры должны быть числами');
     }
-    
-    if (amount <= contribution) {
+
+    if (contribution >= amount) {
         return 0;
     }
+
+    const monthlyPercent = (percent / 100) / 12;
     
-    const creditAmount = amount - contribution;
-    const monthPercent = (percent / 12) / 100;
-    const payment = creditAmount * (monthPercent + monthPercent / 
-        (Math.pow(1 + monthPercent, countMonths) - 1));
+    const creditBody = amount - contribution;
     
-    return parseFloat((payment * countMonths).toFixed(2));
+    const payment = creditBody * (
+        monthlyPercent + 
+        monthlyPercent / 
+        (Math.pow(1 + monthlyPercent, countMonths) - 1)
+    );
+    
+    const totalAmount = parseFloat((payment * countMonths).toFixed(2));
+    
+    return totalAmount;
 }
