@@ -1,10 +1,6 @@
 "use strict";
 
 function solveEquation(a, b, c) {
-    if (a === 0) {
-        throw new Error("Коэффициент a не может быть равен нулю");
-    }
-    
     let arr = [];
     
     const discriminant = b ** 2 - 4 * a * c;
@@ -25,5 +21,19 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
-    // Эта функция осталась без изменений, так как она не относится к заданию
+    if (typeof percent !== 'number' || typeof contribution !== 'number' 
+        || typeof amount !== 'number' || typeof countMonths !== 'number') {
+        throw new Error('Все параметры должны быть числами');
+    }
+    
+    if (amount <= contribution) {
+        return 0;
+    }
+    
+    const creditAmount = amount - contribution;
+    const monthPercent = (percent / 12) / 100;
+    const payment = creditAmount * (monthPercent + monthPercent / 
+        (Math.pow(1 + monthPercent, countMonths) - 1));
+    
+    return parseFloat((payment * countMonths).toFixed(2));
 }
