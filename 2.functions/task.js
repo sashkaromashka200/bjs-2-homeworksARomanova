@@ -1,9 +1,9 @@
 function getArrayParams(...arr) {
-	if (arr.length === 0) {
-		return {
-			min: undefined;max: undefined;avg: undefined
-		};
-	}
+	//if (arr.length === 0) {
+		//return {
+			//min: undefined; max: undefined; avg: undefined
+		//};
+	
 	let min = arr[0];
 	let max = arr[0];
 	let sum = 0;
