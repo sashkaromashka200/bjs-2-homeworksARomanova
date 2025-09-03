@@ -1,42 +1,38 @@
 function getArrayParams(...arr) {
-	if (arr.length === 0) {
-		return {
-			min: undefined; max: undefined; avg: undefined
-		};
+  if (arr.length === 0) {
+    return {
+      min: undefined, 
+      max: undefined, 
+      avg: undefined
+    };
   }
-	
-	let min = arr[0];
-	let max = arr[0];
-	let sum = 0;
+  
+  let min = arr[0];
+  let max = arr[0];
+  let sum = 0;
 
-	for (let i = 0; i < arr.length; i++) {
-		if (arr[i] > max) {
-			max = arr[i];
-		}
-		if (arr[i] < min) {
-			min = arr[i];
-		}
-		sum += arr[i];
-	}
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+    sum += arr[i];
+  }
 
-	let avg = Number((sum / arr.length).toFixed(2));
+  let avg = Number((sum / arr.length).toFixed(2));
 
-	return {
-		min,
-		max,
-		avg
-	};
+  return {
+    min,
+    max,
+    avg
+  };
 }
 
 console.log(getArrayParams(-99, 99, 10));
 console.log(getArrayParams(1, 2, 3, -100, 10));
 console.log(getArrayParams(5));
-
-return {
-	min: min,
-	max: max,
-	avg: avg
-};
 
 function summElementsWorker(...arr) {
 	if (arr.length === 0) {
