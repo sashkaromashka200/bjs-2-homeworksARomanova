@@ -12,13 +12,9 @@ class PrintEditionItem {
   }
 
   set state(newState) {
-    if (newState < 0) {
-      this._state = 0;
-    } else if (newState > 100) {
-      this._state = 100;
-    } else {
-      this._state = newState;
-    }
+    if (newState < 0) this._state = 0;
+    else if (newState > 100) this._state = 100;
+    else this._state = newState;
   }
 
   fix() {
@@ -69,27 +65,17 @@ class Library {
   }
 
   addBook(book) {
-    if (book.state > 30) {
-      this.books.push(book);
-    }
+    if (book.state > 30) this.books.push(book);
   }
 
   findBookBy(type, value) {
-    for (let book of this.books) {
-      if (book[type] === value) {
-        return book;
-      }
-    }
-    return null;
+    return this.books.find(book => book[type] === value) || null;
   }
 
   giveBookByName(bookName) {
-    for (let i = 0; i < this.books.length; i++) {
-      if (this.books[i].name === bookName) {
-        return this.books.splice(i, 1)[0];
-      }
-    }
-    return null;
+    const index = this.books.findIndex(book => book.name === bookName);
+    if (index === -1) return null;
+    return this.books.splice(index, 1)[0];
   }
 }
 
@@ -100,38 +86,20 @@ class Student {
   }
 
   addMark(mark, subject) {
-    if (mark < 2 || mark > 5) {
-      return false;
-    }
-
-    if (!this.marks[subject]) {
-      this.marks[subject] = [];
-    }
-
+    if (mark < 2 || mark > 5) return false;
+    if (!this.marks[subject]) this.marks[subject] = [];
     this.marks[subject].push(mark);
     return true;
   }
 
   getAverageBySubject(subject) {
-    if (!this.marks[subject] || this.marks[subject].length === 0) {
-      return 0;
-    }
-
-    const sum = this.marks[subject].reduce((total, mark) => total + mark, 0);
-    return sum / this.marks[subject].length;
+    if (!this.marks[subject]?.length) return 0;
+    return this.marks[subject].reduce((sum, mark) => sum + mark, 0) / this.marks[subject].length;
   }
 
   getAverage() {
     const subjects = Object.keys(this.marks);
-    
-    if (subjects.length === 0) {
-      return 0;
-    }
-
-    const totalSum = subjects.reduce((sum, subject) => {
-      return sum + this.getAverageBySubject(subject);
-    }, 0);
-
-    return totalSum / subjects.length;
+    if (!subjects.length) return 0;
+    return subjects.reduce((sum, subject) => sum + this.getAverageBySubject(subject), 0) / subjects.length;
   }
 }
