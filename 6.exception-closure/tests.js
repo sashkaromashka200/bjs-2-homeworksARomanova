@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 describe('Домашнее задание к лекции «Обработка исключений и замыкания»', () => {
     describe('Задача №1', () => {
       it('функция parseCount должна парсить целое значение', () => {
@@ -12,19 +11,11 @@ describe('Домашнее задание к лекции «Обработка �
       it('функция validateCount должна парсить дробное значение', () => {
         expect(validateCount("56.65")).toEqual(56.65);
       });
-=======
-function parseCount(value) {
-    const result = Number.parseInt(value);
-    if (isNaN(result)) throw new Error("Невалидное значение");
-    return result;
-}
->>>>>>> 1c85c7f4842f6d25b586a4898de99db706e338e4
 
       it('функция parseCount не должна парсить невалидное значение', () => {
         expect(() => parseCount("ыфва")).toThrowError("Невалидное значение");
     });
 
-<<<<<<< HEAD
       it('функция validateCount должна возвращать перехваченную ошибку', () => {
         expect(validateCount("ыфва").stack.includes("parseCount")).toBeTruthy();
       });
@@ -92,35 +83,3 @@ function parseCount(value) {
     })
 
 });
-=======
-class Triangle {
-    constructor(a, b, c) {
-        if (a + b <= c || a + c <= b || b + c <= a) {
-            throw new Error("Треугольник с такими сторонами не существует");
-        }
-        this.a = a;
-        this.b = b;
-        this.c = c;
-    }
-    
-    get perimeter() {
-        return this.a + this.b + this.c;
-    }
-    
-    get area() {
-        const p = this.perimeter / 2;
-        return parseFloat(Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3));
-    }
-}
-
-function getTriangle(a, b, c) {
-    try {
-        return new Triangle(a, b, c);
-    } catch (error) {
-        return {
-            get perimeter() { return "Ошибка! Треугольник не существует"; },
-            get area() { return "Ошибка! Треугольник не существует"; }
-        };
-    }
-}
->>>>>>> 1c85c7f4842f6d25b586a4898de99db706e338e4
