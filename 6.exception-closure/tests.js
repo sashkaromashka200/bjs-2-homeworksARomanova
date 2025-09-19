@@ -1,17 +1,14 @@
 function parseCount(value) {
-    const parsed = Number.parseFloat(value);
-    if (isNaN(parsed)) {
-        throw new Error("Невалидное значение");
+    if (typeof value === 'string') {
+        const parsed = Number(value);
+        if (!isNaN(parsed)) return parsed;
+        
+        const cleanValue = value.replace(',', '.').trim();
+        const parsedClean = Number(cleanValue);
+        if (!isNaN(parsedClean)) return parsedClean;
     }
-    return parsed;
-}
-
-function validateCount(value) {
-    try {
-        return parseCount(value);
-    } catch (error) {
-        return error;
-    }
+    
+    throw new Error("Невалидное значение");
 }
 
 class Triangle {
@@ -23,20 +20,16 @@ class Triangle {
         this.a = a;
         this.b = b;
         this.c = c;
-        
-        this.perimeter = a + b + c;
+    }
+
+    get perimeter() {
+        return this.a + this.b + this.c;
+    }
+
+    get area() {
         const p = this.perimeter / 2;
-        this.area = parseFloat(Math.sqrt(p * (p - a) * (p - b) * (p - c)).toFixed(3));
-        
-        // Делаем свойства неизменяемыми
-        Object.defineProperty(this, 'perimeter', {
-            writable: false,
-            configurable: false
-        });
-        Object.defineProperty(this, 'area', {
-            writable: false,
-            configurable: false
-        });
+        const area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+        return parseFloat(area.toFixed(3));
     }
 }
 
@@ -45,8 +38,12 @@ function getTriangle(a, b, c) {
         return new Triangle(a, b, c);
     } catch (error) {
         const errorObj = {
-            perimeter: 'Ошибка! Треугольник не существует',
-            area: 'Ошибка! Треугольник не существует'
+            get perimeter() {
+                return "Ошибка! Треугольник не существует";
+            },
+            get area() {
+                return "Ошибка! Треугольник не существует";
+            }
         };
         
         Object.defineProperty(errorObj, 'perimeter', {
